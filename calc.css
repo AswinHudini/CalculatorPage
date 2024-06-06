@@ -1,0 +1,44 @@
+html{
+    font-size: 22pt;
+}
+
+body{
+    margin: 10% 30%;
+}
+#display{
+    padding: 10%;
+    background-color: black;
+    width: 80%;
+    color: azure;
+    text-align: right;
+}
+.syntax{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.numbers{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr ;
+    text-align: center;
+}
+
+.button{
+    padding: 20% 25%;
+    border: 1px solid rgb(103, 101, 101);
+}
+
+#equal{
+    display: grid;
+    grid-row :span 4;
+    border: 1px solid rgb(103, 101, 101);
+    align-content: center;
+    background-color: rgb(252, 139, 82);
+}
+
+/* .no{
+    border: 1px solid rgb(103, 101, 101);
+    background-color: rgb(255, 255, 255);
+} */
+

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="calc.css">
+</head>
+<body>
+<section>
+    <div class="header">
+        <div id="display">0</div>
+        <div class="buttons">
+            <section class="syntax">
+                <button class="button operator" data-value="+">+</button>
+                <button class="button operator" data-value="-">-</button>
+                <button class="button operator" data-value="*">*</button>
+                <button class="button operator" data-value="/">/</button>
+            </section>
+            <section class="keys">
+                <div class="numbers">
+                    <div class="button number" data-value="7">7</div>
+                    <div class="button number" data-value="8">8</div>
+                    <div class="button number" data-value="9">9</div>
+                    <div id="equal" class="button equal">=</div>
+                    <div class="button number" data-value="4">4</div>
+                    <div class="button number" data-value="5">5</div>
+                    <div class="button number" data-value="6">6</div>
+                    <div class="button number" data-value="1">1</div>
+                    <div class="button number" data-value="2">2</div>
+                    <div class="button number" data-value="3">3</div>
+                    <div class="button number" data-value="0">0</div>
+                    <div class="button number" data-value=".">.</div>
+                    <div class="button clear" data-value="C">C</div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+<script>
+let display = document.getElementById('display');
+let buttons = Array.from(document.getElementsByClassName('button'));
+ 
+function calculate(expression) {
+    let numbers = [];
+    let operator;
+    let currentNumber = "";
+ 
+    for (let char of expression) {
+        if (!isNaN(char) || char === ".") {
+            currentNumber += char;
+        } else {
+            numbers.push(parseFloat(currentNumber));
+            currentNumber = "";
+            operator = char;
+        }
+    }
+ 
+    numbers.push(parseFloat(currentNumber));
+ 
+    let result = numbers[0];
+    for (let i = 1; i < numbers.length; i += 2) {
+        switch (operator) {
+            case "+":
+                result += numbers[i];
+                break;
+            case "-":
+                result -= numbers[i];
+                break;
+            case "*":
+                result *= numbers[i];
+                break;
+            case "/":
+                if (numbers[i] === 0) {
+                    return "Error: Division by zero";
+                }
+                result /= numbers[i];
+                break;
+        }
+        operator = numbers[i + 1] ? numbers[i + 1] : undefined;
+    }
+ 
+    return result;
+}
+ 
+buttons.map(button => {
+    button.addEventListener('click', (e) => {
+        switch (e.target.innerText) {
+            case 'C':
+                display.innerText = '';
+                break;
+            case '=':
+                let result = calculate(display.innerText);
+                if (result === "Error: Division by zero") {
+                    display.innerText = result;
+                } else {
+                    display.innerText = result.toString();
+                }
+                break;
+            default:
+                display.innerText += e.target.innerText;
+        }
+    });
+});
+</script>
+</body>
+</html>
